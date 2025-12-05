@@ -8,7 +8,7 @@ from .models import Paquete
 from .serializers import PaqueteSerializer
 
 # Create your views here.
-class AgregarPaqueteView(APIView):
+class PaquetesView(APIView):
   def get(self, request):
     paquetes = Paquete.objects.all()
     if not paquetes:
