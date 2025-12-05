@@ -9,6 +9,13 @@ from .serializers import PaqueteSerializer
 
 # Create your views here.
 class AgregarPaqueteView(APIView):
+  def get(self, request):
+    paquetes = Paquete.objects.all()
+    if not paquetes:
+      return Response(data={"Mensaje": "No se ha encontrado ningún paquete"},status=status.HTTP_404_NOT_FOUND)
+    paquetes_serializer = PaqueteSerializer(paquetes, many=True)
+    return Response(data=paquetes_serializer.data,status=status.HTTP_200_OK)
+    
   def post(self,request):
     info_paquete = request.data
     print(info_paquete)
@@ -28,3 +35,4 @@ class BuscarIDPaqueteView(APIView):
       return Response(data={"Error": "No existe el paquete buscado"})
     paquete_serializer = PaqueteSerializer(paquete)
     return Response(data=paquete_serializer.data, status=status.HTTP_200_OK)
+  
