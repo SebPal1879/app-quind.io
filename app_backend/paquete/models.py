@@ -9,7 +9,7 @@ class Paquete(models.Model):
     ("ENTREGADO", "Entregado")
   ]
 
-  nombre_destinario = models.CharField(null=False,max_length=120)
+  nombre_destinatario = models.CharField(null=False,max_length=120)
   direccion = models.CharField(null=False,max_length=120)
   estado = models.CharField(null=False,max_length=120,choices=ESTADO_CHOICES)
   fecha_creacion = models.DateTimeField(null=False,auto_now_add=True)
