@@ -33,7 +33,6 @@ function VerPaquete() {
       async function getPaquete() {
         try {
           const respuesta = await axios.get(`${BACKEND_URL}paquetes/${id}`);
-          console.log(respuesta);
           setPaquete(respuesta.data);
           setEstadoForm(respuesta.data.estado);
         } catch (e) {
@@ -50,16 +49,20 @@ function VerPaquete() {
     <div>
       <table>
         <thead>
-          <th>ID</th>
-          <th>Destinatario</th>
-          <th>Fecha creación</th>
-          <th>Estado</th>
+          <tr>
+            <th>ID</th>
+            <th>Destinatario</th>
+            <th>Fecha creación</th>
+            <th>Estado</th>
+          </tr>
         </thead>
         <tbody>
-          <td>{paquete.id}</td>
-          <td>{paquete.nombre_destinatario}</td>
-          <td>{paquete.fecha_creacion}</td>
-          <td>{paquete.estado}</td>
+          <tr>
+            <td>{paquete.id}</td>
+            <td>{paquete.nombre_destinatario}</td>
+            <td>{paquete.fecha_creacion}</td>
+            <td>{paquete.estado}</td>
+          </tr>
         </tbody>
       </table>
 
