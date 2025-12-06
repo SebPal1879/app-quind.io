@@ -1,9 +1,9 @@
-import { useState } from "react";
+import VerPaquete from "./components/VerPaquete";
 
 function App() {
   return (
     <>
-      <p>Frontend</p>
+      <VerPaquete />
     </>
   );
 }
