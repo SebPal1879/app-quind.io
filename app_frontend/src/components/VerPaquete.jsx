@@ -8,24 +8,29 @@ function VerPaquete() {
   const [paquete, setPaquete] = useState("");
   const [estadoForm, setEstadoForm] = useState("");
 
+  const URL = `${BACKEND_URL}/${id}/estado`;
+
   function guardarCambio() {
-    if (paquete.estado === estadoForm) return;
+    if (paquete.estado === estadoForm) {
+      alert("El paquete ya está en este estado");
+      return;
+    }
   }
 
   function validadorEstado(estado) {
-    if (paquete.estado === "CREADO" && estado !== "EN_TRANSITO") {
+    if (paquete.estado === "Creado" && estado !== "En tránsito") {
+      alert("Transición no válida");
+      console.log(estadoForm);
+      setEstadoForm(paquete.estado);
+      return;
+    }
+    if (paquete.estado === "En tránsito" && estado !== "Entregado") {
       alert("Transición no válida");
       setEstadoForm(paquete.estado);
-    } else {
-      setEstadoForm(estado);
+      return;
     }
 
-    if (paquete.estado === "EN_TRANSITO" && estado !== "ENTREGADO") {
-      alert("Transición no válida");
-      setEstadoForm(paquete.estado);
-    } else {
-      setEstadoForm(estado);
-    }
+    setEstadoForm(estado);
   }
 
   useEffect(
@@ -73,15 +78,9 @@ function VerPaquete() {
         value={estadoForm}
         onChange={(e) => validadorEstado(e.target.value)}
       >
-        <option value="CREADO" disabled={paquete.estado === "CREADO"}>
-          Creado
-        </option>
-        <option value="EN_TRANSITO" disabled={paquete.estado === "EN_TRANSITO"}>
-          En tránsito
-        </option>
-        <option value="ENTREGADO" disabled={paquete.estado === "ENTREGADO"}>
-          Entregado
-        </option>
+        <option value="Creado">Creado</option>
+        <option value="En tránsito">En tránsito</option>
+        <option value="Entregado">Entregado</option>
       </select>
       <button onClick={() => guardarCambio()}>Guardar</button>
     </div>
