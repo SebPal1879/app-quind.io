@@ -1,7 +1,7 @@
 function VerPaquete() {
   return (
     <div>
-      <p></p>
+      <p>Ver paquete</p>
     </div>
   );
 }
