@@ -32,7 +32,23 @@ class BuscarIDPaqueteView(APIView):
     try:
       paquete = Paquete.objects.get(pk=paquete_id)
     except ObjectDoesNotExist:
-      return Response(data={"Error": "No existe el paquete buscado"})
+      return Response(data={"Error": "No existe el paquete buscado"},status=status.HTTP_404_NOT_FOUND)
     paquete_serializer = PaqueteSerializer(paquete)
     return Response(data=paquete_serializer.data, status=status.HTTP_200_OK)
   
+class ActualizarPaqueteView(APIView):
+  def put(self, request, paquete_id):
+    try:
+      paquete = Paquete.objects.get(pk=paquete_id)
+    except ObjectDoesNotExist:
+      return Response(data={"Error": "No existe el paquete buscado"},status=status.HTTP_404_NOT_FOUND)
+    if paquete.estado == "CREADO":
+      paquete.mover()
+    elif paquete.estado == "EN_TRANSITO":
+      paquete.entregar()
+    else:
+      return Response(data={"Error": "No se puede hacer el cambio en el estado del paquete"},status=status.HTTP_400_BAD_REQUEST)
+    paquete.save()
+    paquete_serializer = PaqueteSerializer(paquete)
+    return Response(data=paquete_serializer.data, status=status.HTTP_202_ACCEPTED)
+    
