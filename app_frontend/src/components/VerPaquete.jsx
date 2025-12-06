@@ -8,12 +8,26 @@ function VerPaquete() {
   const [paquete, setPaquete] = useState("");
   const [estadoSelect, setEstadoSelect] = useState("");
 
-  const URL = `${BACKEND_URL}/${id}/estado`;
+  const URL = `${BACKEND_URL}paquetes/${id}/estado/`;
 
   function guardarCambio() {
     if (paquete.estado === estadoSelect) {
       alert("El paquete ya está en este estado");
       return;
+    } else {
+      async function actualizarEstado() {
+        try {
+          const response = await axios.put(URL);
+          if (response.status == 202) {
+            setPaquete(response.data);
+          }
+          alert("Cambiado exitosamente");
+        } catch (e) {
+          console.log(e);
+          alert("No se pudo efectuar el cambio");
+        }
+      }
+      actualizarEstado();
     }
   }
 
