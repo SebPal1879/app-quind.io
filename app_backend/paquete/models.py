@@ -1,15 +1,24 @@
-from django.db import models
+from django.db import models 
+from django_fsm import FSMField, transition
 
+class Estado(models.TextChoices): 
+  CREADO = "CREADO", "Creado", 
+  EN_TRANSITO = "EN_TRANSITO", "En tránsito", 
+  ENTREGADO = "ENTREGADO", "Entregado"
+  
 
 class Paquete(models.Model):
 
-  ESTADO_CHOICES = [
-    ("CREADO", "Creado"),
-    ("EN_TRANSITO", "En tránsito"),
-    ("ENTREGADO", "Entregado")
-  ]
-
   nombre_destinatario = models.CharField(null=False,max_length=120)
   direccion = models.CharField(null=False,max_length=120)
-  estado = models.CharField(null=False,max_length=120,choices=ESTADO_CHOICES)
+  estado = FSMField(choices=Estado.choices,default=Estado.CREADO,protected=True)
   fecha_creacion = models.DateTimeField(null=False,auto_now_add=True)
+
+
+  @transition(field=estado,source=Estado.CREADO,target=Estado.EN_TRANSITO)
+  def mover(self):
+    pass
+
+  @transition(field=estado,source=Estado.EN_TRANSITO,target=Estado.ENTREGADO)
+  def entregar(self):
+    pass
