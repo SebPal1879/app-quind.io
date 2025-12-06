@@ -6,12 +6,12 @@ import axios from "axios";
 function VerPaquete() {
   const { id } = useParams();
   const [paquete, setPaquete] = useState("");
-  const [estadoForm, setEstadoForm] = useState("");
+  const [estadoSelect, setEstadoSelect] = useState("");
 
   const URL = `${BACKEND_URL}/${id}/estado`;
 
   function guardarCambio() {
-    if (paquete.estado === estadoForm) {
+    if (paquete.estado === estadoSelect) {
       alert("El paquete ya está en este estado");
       return;
     }
@@ -20,17 +20,17 @@ function VerPaquete() {
   function validadorEstado(estado) {
     if (paquete.estado === "Creado" && estado !== "En tránsito") {
       alert("Transición no válida");
-      console.log(estadoForm);
-      setEstadoForm(paquete.estado);
+      console.log(estadoSelect);
+      setEstadoSelect(paquete.estado);
       return;
     }
     if (paquete.estado === "En tránsito" && estado !== "Entregado") {
       alert("Transición no válida");
-      setEstadoForm(paquete.estado);
+      setEstadoSelect(paquete.estado);
       return;
     }
 
-    setEstadoForm(estado);
+    setEstadoSelect(estado);
   }
 
   useEffect(
@@ -39,7 +39,7 @@ function VerPaquete() {
         try {
           const respuesta = await axios.get(`${BACKEND_URL}paquetes/${id}`);
           setPaquete(respuesta.data);
-          setEstadoForm(respuesta.data.estado);
+          setEstadoSelect(respuesta.data.estado);
         } catch (e) {
           console.log(e);
           alert("No se encontró el paquete en cuestión");
@@ -75,7 +75,7 @@ function VerPaquete() {
       <select
         name="opciones"
         id="estados"
-        value={estadoForm}
+        value={estadoSelect}
         onChange={(e) => validadorEstado(e.target.value)}
       >
         <option value="Creado">Creado</option>
