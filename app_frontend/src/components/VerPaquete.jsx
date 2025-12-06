@@ -43,6 +43,11 @@ function VerPaquete() {
       setEstadoSelect(paquete.estado);
       return;
     }
+    if (paquete.estado === "Entregado") {
+      alert("Transición no válida");
+      setEstadoSelect(paquete.estado);
+      return;
+    }
 
     setEstadoSelect(estado);
   }
@@ -66,37 +71,43 @@ function VerPaquete() {
 
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Destinatario</th>
-            <th>Fecha creación</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{paquete.id}</td>
-            <td>{paquete.nombre_destinatario}</td>
-            <td>{paquete.fecha_creacion}</td>
-            <td>{paquete.estado}</td>
-          </tr>
-        </tbody>
-      </table>
+      {paquete && (
+        <>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Destinatario</th>
+                <th>Fecha creación</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{paquete.id}</td>
+                <td>{paquete.nombre_destinatario}</td>
+                <td>{paquete.fecha_creacion}</td>
+                <td>{paquete.estado}</td>
+              </tr>
+            </tbody>
+          </table>
 
-      <label htmlFor="estados">Cambiar estado</label>
-      <select
-        name="opciones"
-        id="estados"
-        value={estadoSelect}
-        onChange={(e) => validadorEstado(e.target.value)}
-      >
-        <option value="Creado">Creado</option>
-        <option value="En tránsito">En tránsito</option>
-        <option value="Entregado">Entregado</option>
-      </select>
-      <button onClick={() => guardarCambio()}>Guardar</button>
+          <label htmlFor="estados">Cambiar estado</label>
+          <select
+            name="opciones"
+            id="estados"
+            value={estadoSelect}
+            onChange={(e) => validadorEstado(e.target.value)}
+            disabled={paquete.estado === "Entregado"}
+          >
+            <option value="Creado">Creado</option>
+            <option value="En tránsito">En tránsito</option>
+            <option value="Entregado">Entregado</option>
+          </select>
+          <button onClick={() => guardarCambio()}>Guardar</button>
+        </>
+      )}
+      {<>No se encontró ningún paquete</> || paquete}
     </div>
   );
 }
