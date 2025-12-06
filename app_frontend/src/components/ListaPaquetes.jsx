@@ -1,17 +1,21 @@
+import { Link } from "react-router-dom";
+
 function ListaPaquetes({ paquetes }) {
   return (
     <table>
-      <tr>
+      <thead>
         <th>ID</th>
         <th>Destinatario</th>
         <th>Estado</th>
-      </tr>
+      </thead>
       {paquetes.map((paquete) => (
-        <tr>
-          <td>{paquete.id}</td>
+        <tbody>
+          <td>
+            <Link to={`${paquete.id}`}>{paquete.id}</Link>
+          </td>
           <td>{paquete.nombre_destinatario}</td>
           <td>{paquete.estado}</td>
-        </tr>
+        </tbody>
       ))}
     </table>
   );

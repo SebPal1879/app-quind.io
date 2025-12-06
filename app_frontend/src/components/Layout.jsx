@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 function Layout() {
   return (
     <div>
-      <p>Vista</p>
+      <p>Gestión de paquetes</p>
       <Outlet />
     </div>
   );
