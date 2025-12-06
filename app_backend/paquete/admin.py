@@ -8,7 +8,7 @@ from fsm_admin.mixins import FSMTransitionMixin
 
 class PaqueteAdmin(FSMTransitionMixin,admin.ModelAdmin):
   fsm_field = ["estado",]
-  readonly_fields = ("estado",)
+  readonly_fields = ("estado", "fecha_creacion")
 
 
 admin.site.register(Paquete, PaqueteAdmin)
