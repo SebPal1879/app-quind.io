@@ -5,14 +5,18 @@ import BACKEND_URL from "../api/backendUrl";
 
 import style from "../styles/Crear.module.css";
 import BotonListaPaquetes from "./BotonListaPaquetes";
+import useCustomModal from "../functions/useCustomModal";
 
 const URL = `${BACKEND_URL}paquetes/`;
 
 function CrearPaquete() {
+  const [modalEvent, setModalEvent] = useState("");
+  const { setShowModal, CustomModal } = useCustomModal(setModalEvent, "");
   const [nombreDestinatario, setNombreDestinatario] = useState("");
   const [direccion, setDireccion] = useState("");
 
-  function crearPaquete() {
+  function crearPaquete(e) {
+    e.preventDefault();
     if (!nombreDestinatario) return;
     if (!direccion) return;
 
@@ -25,11 +29,15 @@ function CrearPaquete() {
       try {
         const response = await axios.post(URL, data);
         if (response.status === 201) {
-          alert("Paquete creado con éxito");
+          setModalEvent("creado");
+          setShowModal(true);
+          setNombreDestinatario("");
+          setDireccion("");
         }
       } catch (e) {
         console.log(e);
-        alert("No se pudo crear el paquete");
+        setModalEvent("fallido");
+        setShowModal(true);
       }
     }
 
@@ -39,7 +47,7 @@ function CrearPaquete() {
   return (
     <div>
       <div className={style.container}>
-        <form onSubmit={crearPaquete} className={style.form}>
+        <form onSubmit={(e) => crearPaquete(e)} className={style.form}>
           <div>
             <label htmlFor="nombre">Nombre del destinatario:</label>
             <input
@@ -68,6 +76,10 @@ function CrearPaquete() {
         </form>
       </div>
       <BotonListaPaquetes />
+      <CustomModal>
+        {modalEvent === "creado" && <>Paquete creado con éxito</>}
+        {modalEvent === "fallido" && <>No se pudo crear el paquete</>}
+      </CustomModal>
     </div>
   );
 }

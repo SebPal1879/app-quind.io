@@ -21,6 +21,8 @@ function useCustomModal(setState, inicial) {
 
   function onCloseModal() {
     setShowModal(false);
+    if (!setState) return;
+    if (!inicial) return;
     setState(inicial);
   }
 
