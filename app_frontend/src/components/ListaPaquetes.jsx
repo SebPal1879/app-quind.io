@@ -16,7 +16,7 @@ function ListaPaquetes({ paquetes }) {
         {paquetes.map((paquete) => (
           <tr className={styleTabla.tr} key={paquete.id}>
             <td>
-              <Link to={`${paquete.id}`}>{paquete.id}</Link>
+              <Link to={`/paquetes/${paquete.id}`}>{paquete.id}</Link>
             </td>
             <td>{paquete.nombre_destinatario}</td>
             <td>{paquete.estado}</td>

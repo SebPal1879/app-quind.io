@@ -12,9 +12,9 @@ function App() {
         <Routes>
           <Route index element={<Navigate to="paquetes" />} />
           <Route path="paquetes" element={<Layout />}>
-            <Route index element={<VerTodosPaquetes />} />
-            <Route path="crear" element={<CrearPaquete />} />
+            <Route path="ver-todos" element={<VerTodosPaquetes />} />
             <Route path=":id" element={<VerPaquete />} />
+            <Route path="crear" element={<CrearPaquete />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -10,10 +10,10 @@ function Layout() {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <NavLink to={"crear"}>Crear paquete</NavLink>
+            <NavLink to={"ver-todos"}>Ver paquetes</NavLink>
           </li>
           <li>
-            <NavLink to={"/paquetes"}>Ver paquetes</NavLink>
+            <NavLink to={"crear"}>Crear paquete</NavLink>
           </li>
         </ul>
       </nav>
