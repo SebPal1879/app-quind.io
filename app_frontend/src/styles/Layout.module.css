@@ -22,19 +22,19 @@
   color: #303030;
 }
 
-.button {
+:global(.button) {
   border-radius: 19px;
   border: 0;
   min-height: 34px;
   min-width: 128px;
 }
 
-.button:hover {
+:global(.button:hover) {
   background-color: rgb(212, 212, 212);
   cursor: pointer;
 }
 
-.buttonSpace {
+:global(.buttonSpace) {
   margin: 12px 0;
   display: flex;
   justify-content: center;

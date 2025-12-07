@@ -3,6 +3,8 @@ import axios from "axios";
 
 import BACKEND_URL from "../api/backendUrl";
 
+import style from "../styles/Crear.module.css";
+
 const URL = `${BACKEND_URL}paquetes/`;
 
 function CrearPaquete() {
@@ -34,27 +36,33 @@ function CrearPaquete() {
   }
 
   return (
-    <div>
-      <form onSubmit={crearPaquete}>
-        <label htmlFor="nombre">Nombre del destinatario</label>
-        <input
-          type="text"
-          id="nombre"
-          value={nombreDestinatario}
-          required
-          onChange={(e) => setNombreDestinatario(e.target.value)}
-        />
+    <div className={style.container}>
+      <form onSubmit={crearPaquete} className={style.form}>
+        <div>
+          <label htmlFor="nombre">Nombre del destinatario:</label>
+          <input
+            type="text"
+            id="nombre"
+            value={nombreDestinatario}
+            required
+            onChange={(e) => setNombreDestinatario(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="direccion">Dirección</label>
-        <input
-          type="text"
-          id="direccion"
-          value={direccion}
-          required
-          onChange={(e) => setDireccion(e.target.value)}
-        />
+        <div>
+          <label htmlFor="direccion">Dirección:</label>
+          <input
+            type="text"
+            id="direccion"
+            value={direccion}
+            required
+            onChange={(e) => setDireccion(e.target.value)}
+          />
+        </div>
 
-        <button>Crear</button>
+        <div className="buttonSpace">
+          <button className={"button"}>Crear</button>
+        </div>
       </form>
     </div>
   );

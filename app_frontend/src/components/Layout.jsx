@@ -18,11 +18,9 @@ function Layout() {
         </ul>
       </nav>
       <Outlet />
-      <div className={styles.buttonSpace}>
-        <button className={styles.button} onClick={() => navigate(-1)}>
-          Retroceder
-        </button>
-      </div>
+      <button className="button" onClick={() => navigate(-1)}>
+        Retroceder
+      </button>
     </div>
   );
 }
