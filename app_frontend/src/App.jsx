@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 function App() {
   return (
     <>
+      <h1>Gestión de paquetes</h1>
       <BrowserRouter>
         <Routes>
           <Route index element={<Navigate to="paquetes" />} />

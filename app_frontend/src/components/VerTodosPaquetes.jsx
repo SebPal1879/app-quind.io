@@ -25,7 +25,7 @@ function VerTodosPaquetes() {
 
   return (
     <div>
-      <p>Ver todos paquetes</p>
+      <p>Paquetes registrados</p>
       {paquetes && <ListaPaquetes paquetes={paquetes} />}
     </div>
   );

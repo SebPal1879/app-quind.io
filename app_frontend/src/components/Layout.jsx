@@ -1,16 +1,28 @@
 import { Outlet, Link, NavLink, useNavigate } from "react-router-dom";
 
+import styles from "../styles/Layout.module.css";
+
 function Layout() {
   const navigate = useNavigate();
+
   return (
     <div>
-      <p>Gestión de paquetes</p>
-      <NavLink>
-        <Link to={"crear"}>Crear paquete</Link>
-        <Link to={"/paquetes"}>Ver paquetes</Link>
-      </NavLink>
+      <nav className={styles.nav}>
+        <ul>
+          <li>
+            <NavLink to={"crear"}>Crear paquete</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/paquetes"}>Ver paquetes</NavLink>
+          </li>
+        </ul>
+      </nav>
       <Outlet />
-      <button onClick={() => navigate(-1)}>Retroceder</button>
+      <div className={styles.buttonSpace}>
+        <button className={styles.button} onClick={() => navigate(-1)}>
+          Retroceder
+        </button>
+      </div>
     </div>
   );
 }

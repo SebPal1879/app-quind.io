@@ -1,0 +1,41 @@
+.nav {
+  background-color: #ecf4f5;
+  display: flex;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+}
+
+.nav li {
+  margin: 10px 20px;
+}
+
+.nav a:global(.active) {
+  border-radius: 19px;
+  text-decoration: underline;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #303030;
+}
+
+.button {
+  border-radius: 19px;
+  border: 0;
+  min-height: 34px;
+  min-width: 128px;
+}
+
+.button:hover {
+  background-color: rgb(212, 212, 212);
+  cursor: pointer;
+}
+
+.buttonSpace {
+  margin: 12px 0;
+  display: flex;
+  justify-content: center;
+}
