@@ -1,57 +1,51 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BACKEND_URL from "../api/backendUrl";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import Modal from "react-modal";
+
 import styleTabla from "../styles/Tabla.module.css";
+import style from "../styles/VerPaquete.module.css";
+
+const modalStyles = {
+  content: {
+    width: "400px",
+    height: "150px",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 function VerPaquete() {
   const { id } = useParams();
   const [paquete, setPaquete] = useState("");
-  const [estadoSelect, setEstadoSelect] = useState("");
+  const navigate = useNavigate();
+
+  const [showModal, setShowModal] = useState(false);
 
   const URL = `${BACKEND_URL}paquetes/${id}/estado/`;
 
   function guardarCambio() {
-    if (paquete.estado === estadoSelect) {
-      alert("El paquete ya está en este estado");
-      return;
-    } else {
-      async function actualizarEstado() {
-        try {
-          const response = await axios.put(URL);
-          if (response.status == 202) {
-            setPaquete(response.data);
-          }
-          alert("Cambiado exitosamente");
-        } catch (e) {
-          console.log(e);
-          alert("No se pudo efectuar el cambio");
+    async function actualizarEstado() {
+      try {
+        const response = await axios.put(URL);
+        if (response.status == 202) {
+          setPaquete(response.data);
         }
+        alert("Cambiado exitosamente");
+        setShowModal(false);
+      } catch (e) {
+        console.log(e);
+        alert("No se pudo efectuar el cambio");
+        setShowModal(false);
       }
-      actualizarEstado();
     }
-  }
-
-  function validadorEstado(estado) {
-    if (paquete.estado === "Creado" && estado !== "En tránsito") {
-      alert("Transición no válida");
-      console.log(estadoSelect);
-      setEstadoSelect(paquete.estado);
-      return;
-    }
-    if (paquete.estado === "En tránsito" && estado !== "Entregado") {
-      alert("Transición no válida");
-      setEstadoSelect(paquete.estado);
-      return;
-    }
-    if (paquete.estado === "Entregado") {
-      alert("Transición no válida");
-      setEstadoSelect(paquete.estado);
-      return;
-    }
-
-    setEstadoSelect(estado);
+    actualizarEstado();
   }
 
   useEffect(
@@ -60,7 +54,6 @@ function VerPaquete() {
         try {
           const respuesta = await axios.get(`${BACKEND_URL}paquetes/${id}`);
           setPaquete(respuesta.data);
-          setEstadoSelect(respuesta.data.estado);
         } catch (e) {
           console.log(e);
           alert("No se encontró el paquete en cuestión");
@@ -94,34 +87,61 @@ function VerPaquete() {
             </tbody>
           </table>
 
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div>
-              <label htmlFor="estados">Cambiar estado: &nbsp;</label>
-              <select
-                name="opciones"
-                id="estados"
-                value={estadoSelect}
-                onChange={(e) => validadorEstado(e.target.value)}
-                disabled={paquete.estado === "Entregado"}
-                className="select"
-              >
-                <option value="Creado">Creado</option>
-                <option value="En tránsito">En tránsito</option>
-                <option value="Entregado">Entregado</option>
-              </select>
-            </div>
-
+          <div className={style.menuBotones}>
             <button
               className="button"
-              onClick={() => guardarCambio()}
-              disabled={paquete.estado === "Entregado"}
+              onClick={() => navigate("/paquetes/ver-todos")}
             >
-              Guardar
+              Volver a vista de paquetes
             </button>
+
+            {paquete.estado !== "Entregado" && (
+              <button
+                className="button"
+                onClick={() => setShowModal(true)}
+                disabled={paquete.estado === "Entregado"}
+              >
+                {paquete.estado === "Creado" &&
+                  "Cambiar paquete a «en tránsito»"}
+                {paquete.estado === "En tránsito" &&
+                  "Cambiar paquete a «entregado»"}
+              </button>
+            )}
           </div>
+
+          <Modal isOpen={showModal} style={modalStyles}>
+            <div>
+              <div
+                style={{
+                  width: "100%",
+                  height: "24px",
+                }}
+              >
+                <img
+                  src="/x_icon.svg"
+                  onClick={() => setShowModal(false)}
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    display: "block",
+                    marginLeft: "auto",
+                  }}
+                />
+              </div>
+            </div>
+            <p>¿Deseas confirmar esta acción?</p>
+            <div className={style.confirmar}>
+              <button className="button" onClick={() => setShowModal(false)}>
+                No, retroceder
+              </button>
+              <button className="button" onClick={guardarCambio}>
+                Sí, confirmar
+              </button>
+            </div>
+          </Modal>
         </>
       )}
-      {paquete ? "" : <>No se encontró ningún paquete</>}
+      {paquete ? "" : <>No se encontró ningún paquete con este ID</>}
     </div>
   );
 }
