@@ -3,30 +3,15 @@ import BACKEND_URL from "../api/backendUrl";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import Modal from "react-modal";
-
 import styleTabla from "../styles/Tabla.module.css";
 import style from "../styles/VerPaquete.module.css";
 import BotonListaPaquetes from "./BotonListaPaquetes";
-
-const modalStyles = {
-  content: {
-    width: "400px",
-    height: "150px",
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+import useCustomModal from "../functions/useCustomModal.jsx";
 
 function VerPaquete() {
+  const { setShowModal, CustomModal } = useCustomModal();
   const { id } = useParams();
   const [paquete, setPaquete] = useState("");
-
-  const [showModal, setShowModal] = useState(false);
 
   const URL = `${BACKEND_URL}paquetes/${id}/estado/`;
 
@@ -104,26 +89,7 @@ function VerPaquete() {
             )}
           </div>
 
-          <Modal isOpen={showModal} style={modalStyles}>
-            <div>
-              <div
-                style={{
-                  width: "100%",
-                  height: "24px",
-                }}
-              >
-                <img
-                  src="/x_icon.svg"
-                  onClick={() => setShowModal(false)}
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    display: "block",
-                    marginLeft: "auto",
-                  }}
-                />
-              </div>
-            </div>
+          <CustomModal>
             <p>¿Deseas confirmar esta acción?</p>
             <div className={style.confirmar}>
               <button className="button" onClick={() => setShowModal(false)}>
@@ -133,7 +99,7 @@ function VerPaquete() {
                 Sí, confirmar
               </button>
             </div>
-          </Modal>
+          </CustomModal>
         </>
       )}
       {paquete ? "" : <>No se encontró ningún paquete con este ID</>}
