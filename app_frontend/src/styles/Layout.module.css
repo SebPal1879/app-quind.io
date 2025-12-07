@@ -52,3 +52,8 @@
   min-width: 128px;
   background-color: #d4d4d4;
 }
+
+:global(.iconoX:hover) {
+  background-color: #e7e7e7;
+  cursor: pointer;
+}

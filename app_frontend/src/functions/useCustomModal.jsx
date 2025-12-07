@@ -37,6 +37,7 @@ function useCustomModal(setState, inicial) {
             }}
           >
             <img
+              className="iconoX"
               src="/x_icon.svg"
               onClick={onCloseModal}
               style={{
