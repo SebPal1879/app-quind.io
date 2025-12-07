@@ -30,12 +30,24 @@
 }
 
 :global(.button:hover) {
-  background-color: rgb(212, 212, 212);
+  background-color: #d4d4d4;
   cursor: pointer;
+}
+
+:global(.button:disabled) {
+  pointer-events: none;
 }
 
 :global(.buttonSpace) {
   margin: 12px 0;
   display: flex;
   justify-content: center;
+}
+
+:global(.select) {
+  border-radius: 19px;
+  border: 0;
+  min-height: 34px;
+  min-width: 128px;
+  background-color: #d4d4d4;
 }

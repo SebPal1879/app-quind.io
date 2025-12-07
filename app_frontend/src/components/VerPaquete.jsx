@@ -3,6 +3,8 @@ import BACKEND_URL from "../api/backendUrl";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import styleTabla from "../styles/Tabla.module.css";
+
 function VerPaquete() {
   const { id } = useParams();
   const [paquete, setPaquete] = useState("");
@@ -73,7 +75,7 @@ function VerPaquete() {
     <div>
       {paquete && (
         <>
-          <table>
+          <table className={styleTabla.table}>
             <thead>
               <tr>
                 <th>ID</th>
@@ -83,7 +85,7 @@ function VerPaquete() {
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr className={styleTabla.tr}>
                 <td>{paquete.id}</td>
                 <td>{paquete.nombre_destinatario}</td>
                 <td>{paquete.fecha_creacion}</td>
@@ -92,22 +94,34 @@ function VerPaquete() {
             </tbody>
           </table>
 
-          <label htmlFor="estados">Cambiar estado</label>
-          <select
-            name="opciones"
-            id="estados"
-            value={estadoSelect}
-            onChange={(e) => validadorEstado(e.target.value)}
-            disabled={paquete.estado === "Entregado"}
-          >
-            <option value="Creado">Creado</option>
-            <option value="En tránsito">En tránsito</option>
-            <option value="Entregado">Entregado</option>
-          </select>
-          <button onClick={() => guardarCambio()}>Guardar</button>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <label htmlFor="estados">Cambiar estado: &nbsp;</label>
+              <select
+                name="opciones"
+                id="estados"
+                value={estadoSelect}
+                onChange={(e) => validadorEstado(e.target.value)}
+                disabled={paquete.estado === "Entregado"}
+                className="select"
+              >
+                <option value="Creado">Creado</option>
+                <option value="En tránsito">En tránsito</option>
+                <option value="Entregado">Entregado</option>
+              </select>
+            </div>
+
+            <button
+              className="button"
+              onClick={() => guardarCambio()}
+              disabled={paquete.estado === "Entregado"}
+            >
+              Guardar
+            </button>
+          </div>
         </>
       )}
-      {<>No se encontró ningún paquete</> || paquete}
+      {paquete ? "" : <>No se encontró ningún paquete</>}
     </div>
   );
 }
