@@ -13,9 +13,16 @@ const modalStyles = {
     transform: "translate(-50%, -50%)",
   },
 };
-
-function useCustomModal() {
+// Los argumentos setState e inicial se usan para alterar el state de un componente externo que llama a useCustomModal
+// Sirven para que, al cerrar el modal, se pueda reiniciar el state a un valor dado por el componente externo.
+// De esta manera, dicho componente externo puede mandar children a conveniencia generados por state (ej: antes de actualizar, después de actualizar, etc.)
+function useCustomModal(setState, inicial) {
   const [showModal, setShowModal] = useState(false);
+
+  function onCloseModal() {
+    setShowModal(false);
+    setState(inicial);
+  }
 
   function CustomModal({ children }) {
     return (
@@ -29,7 +36,7 @@ function useCustomModal() {
           >
             <img
               src="/x_icon.svg"
-              onClick={() => setShowModal(false)}
+              onClick={onCloseModal}
               style={{
                 width: "20px",
                 height: "20px",

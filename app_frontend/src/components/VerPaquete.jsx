@@ -9,7 +9,11 @@ import BotonListaPaquetes from "./BotonListaPaquetes";
 import useCustomModal from "../functions/useCustomModal.jsx";
 
 function VerPaquete() {
-  const { setShowModal, CustomModal } = useCustomModal();
+  const [modalEvent, setModalEvent] = useState("cambiar");
+  const { setShowModal, CustomModal } = useCustomModal(
+    setModalEvent,
+    "cambiar"
+  );
   const { id } = useParams();
   const [paquete, setPaquete] = useState("");
 
@@ -22,12 +26,10 @@ function VerPaquete() {
         if (response.status == 202) {
           setPaquete(response.data);
         }
-        alert("Cambiado exitosamente");
-        setShowModal(false);
+        setModalEvent("cambiadoExito");
       } catch (e) {
         console.log(e);
         alert("No se pudo efectuar el cambio");
-        setShowModal(false);
       }
     }
     actualizarEstado();
@@ -90,15 +92,23 @@ function VerPaquete() {
           </div>
 
           <CustomModal>
-            <p>¿Deseas confirmar esta acción?</p>
-            <div className={style.confirmar}>
-              <button className="button" onClick={() => setShowModal(false)}>
-                No, retroceder
-              </button>
-              <button className="button" onClick={guardarCambio}>
-                Sí, confirmar
-              </button>
-            </div>
+            {modalEvent === "cambiar" && (
+              <>
+                <p>¿Deseas confirmar esta acción?</p>
+                <div className={style.confirmar}>
+                  <button
+                    className="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    No, retroceder
+                  </button>
+                  <button className="button" onClick={guardarCambio}>
+                    Sí, confirmar
+                  </button>
+                </div>
+              </>
+            )}
+            {modalEvent === "cambiadoExito" && <>Estado cambiado con éxito</>}
           </CustomModal>
         </>
       )}
