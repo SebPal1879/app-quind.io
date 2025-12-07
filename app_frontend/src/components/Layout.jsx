@@ -1,10 +1,8 @@
-import { Outlet, Link, NavLink, useNavigate } from "react-router-dom";
+import { Outlet, Link, NavLink } from "react-router-dom";
 
 import styles from "../styles/Layout.module.css";
 
 function Layout() {
-  const navigate = useNavigate();
-
   return (
     <div>
       <nav className={styles.nav}>
@@ -18,9 +16,6 @@ function Layout() {
         </ul>
       </nav>
       <Outlet />
-      <button className="button" onClick={() => navigate(-1)}>
-        Retroceder
-      </button>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 
 import ListaPaquetes from "./ListaPaquetes";
 import BACKEND_URL from "../api/backendUrl";
+import BotonListaPaquetes from "./BotonListaPaquetes";
 
 const URL = `${BACKEND_URL}paquetes/`;
 

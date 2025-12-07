@@ -4,6 +4,7 @@ import axios from "axios";
 import BACKEND_URL from "../api/backendUrl";
 
 import style from "../styles/Crear.module.css";
+import BotonListaPaquetes from "./BotonListaPaquetes";
 
 const URL = `${BACKEND_URL}paquetes/`;
 
@@ -36,34 +37,37 @@ function CrearPaquete() {
   }
 
   return (
-    <div className={style.container}>
-      <form onSubmit={crearPaquete} className={style.form}>
-        <div>
-          <label htmlFor="nombre">Nombre del destinatario:</label>
-          <input
-            type="text"
-            id="nombre"
-            value={nombreDestinatario}
-            required
-            onChange={(e) => setNombreDestinatario(e.target.value)}
-          />
-        </div>
+    <div>
+      <div className={style.container}>
+        <form onSubmit={crearPaquete} className={style.form}>
+          <div>
+            <label htmlFor="nombre">Nombre del destinatario:</label>
+            <input
+              type="text"
+              id="nombre"
+              value={nombreDestinatario}
+              required
+              onChange={(e) => setNombreDestinatario(e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="direccion">Dirección:</label>
-          <input
-            type="text"
-            id="direccion"
-            value={direccion}
-            required
-            onChange={(e) => setDireccion(e.target.value)}
-          />
-        </div>
+          <div>
+            <label htmlFor="direccion">Dirección:</label>
+            <input
+              type="text"
+              id="direccion"
+              value={direccion}
+              required
+              onChange={(e) => setDireccion(e.target.value)}
+            />
+          </div>
 
-        <div className="buttonSpace">
-          <button className={"button"}>Crear</button>
-        </div>
-      </form>
+          <div className="buttonSpace">
+            <button className={"button"}>Crear</button>
+          </div>
+        </form>
+      </div>
+      <BotonListaPaquetes />
     </div>
   );
 }

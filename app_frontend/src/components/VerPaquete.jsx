@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BACKEND_URL from "../api/backendUrl";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -7,6 +7,7 @@ import Modal from "react-modal";
 
 import styleTabla from "../styles/Tabla.module.css";
 import style from "../styles/VerPaquete.module.css";
+import BotonListaPaquetes from "./BotonListaPaquetes";
 
 const modalStyles = {
   content: {
@@ -24,7 +25,6 @@ const modalStyles = {
 function VerPaquete() {
   const { id } = useParams();
   const [paquete, setPaquete] = useState("");
-  const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -88,12 +88,7 @@ function VerPaquete() {
           </table>
 
           <div className={style.menuBotones}>
-            <button
-              className="button"
-              onClick={() => navigate("/paquetes/ver-todos")}
-            >
-              Volver a vista de paquetes
-            </button>
+            <BotonListaPaquetes />
 
             {paquete.estado !== "Entregado" && (
               <button
