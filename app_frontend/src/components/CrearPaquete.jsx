@@ -12,6 +12,7 @@ const URL = `${BACKEND_URL}paquetes/`;
 function CrearPaquete() {
   const [modalEvent, setModalEvent] = useState("");
   const { setShowModal, CustomModal } = useCustomModal(setModalEvent, "");
+
   const [nombreDestinatario, setNombreDestinatario] = useState("");
   const [direccion, setDireccion] = useState("");
 

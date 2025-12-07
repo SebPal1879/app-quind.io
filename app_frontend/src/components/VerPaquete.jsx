@@ -26,10 +26,10 @@ function VerPaquete() {
         if (response.status == 202) {
           setPaquete(response.data);
         }
-        setModalEvent("cambiadoExito");
+        setModalEvent("cambioExitoso");
       } catch (e) {
         console.log(e);
-        alert("No se pudo efectuar el cambio");
+        setModalEvent("cambioFallido");
       }
     }
     actualizarEstado();
@@ -43,12 +43,11 @@ function VerPaquete() {
           setPaquete(respuesta.data);
         } catch (e) {
           console.log(e);
-          alert("No se encontró el paquete en cuestión");
         }
       }
       getPaquete();
     },
-    [id]
+    [id, setShowModal]
   );
 
   return (
@@ -76,7 +75,6 @@ function VerPaquete() {
 
           <div className={style.menuBotones}>
             <BotonListaPaquetes />
-
             {paquete.estado !== "Entregado" && (
               <button
                 className="button"
@@ -108,11 +106,21 @@ function VerPaquete() {
                 </div>
               </>
             )}
-            {modalEvent === "cambiadoExito" && <>Estado cambiado con éxito</>}
+            {modalEvent === "cambioExitoso" && <>Estado cambiado con éxito</>}
+            {modalEvent === "cambioFallido" && (
+              <>No se puedo efectuar el cambio de estado</>
+            )}
           </CustomModal>
         </>
       )}
-      {paquete ? "" : <>No se encontró ningún paquete con este ID</>}
+      {paquete ? (
+        ""
+      ) : (
+        <>
+          <div>No se encontró ningún paquete con este ID</div>
+          <BotonListaPaquetes />
+        </>
+      )}
     </div>
   );
 }

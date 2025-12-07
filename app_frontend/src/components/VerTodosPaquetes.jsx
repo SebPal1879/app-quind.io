@@ -18,7 +18,6 @@ function VerTodosPaquetes() {
         setPaquetes(respuesta.data);
       } catch (e) {
         console.log(e);
-        alert("No se encontraron paquetes");
       }
     }
     getPaquetes();
@@ -27,7 +26,11 @@ function VerTodosPaquetes() {
   return (
     <div>
       <p>Paquetes registrados</p>
-      {paquetes && <ListaPaquetes paquetes={paquetes} />}
+      {paquetes ? (
+        <ListaPaquetes paquetes={paquetes} />
+      ) : (
+        <>No se encontró ningún paquete</>
+      )}
     </div>
   );
 }
