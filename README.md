@@ -32,7 +32,7 @@ Este proyecto usa herramientas libres para el front-end y back-end. Las herramie
 
 ## ¿Cómo se usa el proyecto?
 
-Teniendo en cuenta que el proyecto no está desplegado en la nube, ppara usarlo de manera local se requiere tener instalado [Python](https://www.python.org/downloads/) y [Node.js](https://nodejs.org/en/download) en tu computador. Las versiones de Python y Node.js usadas son **3.13.2** y **22.13.0**, respectivamente. Una vez instaladas estas herramientas, debes clonar el proyecto y acceder a su respectiva carpeta. Dentro de la carpeta del proyecto clonado, debes hacer lo siguiente:
+Teniendo en cuenta que el proyecto no está desplegado en la nube, ppara usarlo de manera local se requiere tener instalado [Python](https://www.python.org/downloads/) y [Node.js](https://nodejs.org/en/download) en tu computador. Las versiones de Python y Node.js usadas son **3.13.2** y **22.13.0**, respectivamente. Una vez instaladas estas herramientas, debes clonar el proyecto y acceder a su respectiva carpeta. **IMPORTANTE: se deben manejar los puertos por defecto especificados abajo. es indispensable para el funcionamiento de la aplicación.** Dentro de la carpeta del proyecto clonado, debes hacer lo siguiente:
 
 ---
 
