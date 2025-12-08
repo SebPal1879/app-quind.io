@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 function App() {
   return (
     <>
-      <h1>Gestión de paquetes</h1>
+      <h1>Gestión de paquetes LogiTrack</h1>
       <BrowserRouter>
         <Routes>
           <Route index element={<Navigate to="paquetes" />} />
@@ -16,6 +16,7 @@ function App() {
             <Route path=":id" element={<VerPaquete />} />
             <Route path="crear" element={<CrearPaquete />} />
           </Route>
+          <Route path="*" element={<Navigate to="/paquetes" />} />
         </Routes>
       </BrowserRouter>
     </>
