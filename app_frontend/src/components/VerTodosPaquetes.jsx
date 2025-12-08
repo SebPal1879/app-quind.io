@@ -25,9 +25,11 @@ function VerTodosPaquetes() {
 
   return (
     <div>
-      <p>Paquetes registrados</p>
       {paquetes ? (
-        <ListaPaquetes paquetes={paquetes} />
+        <>
+          <p>Paquetes registrados</p>
+          <ListaPaquetes paquetes={paquetes} />
+        </>
       ) : (
         <>No se encontró ningún paquete</>
       )}
