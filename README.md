@@ -28,6 +28,10 @@ Este proyecto usa herramientas libres para el front-end y back-end. Las herramie
 - Axios
 - React Router
 
+#### Bases de datos
+
+- SQL a través de SQLite
+
 ---
 
 ## ¿Cómo se usa el proyecto?
